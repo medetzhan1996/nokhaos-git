@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block sidebar %}
+    {% include "crm/integration/sidebar.html" %}
+{% endblock %}
+{% block main %}
+
+    <main class="main main-visible" id="MainContent">
+        <!-- Profile Settings Start -->
+        <div class="profile" style="display: block;">
+            <div class="page-main-heading sticky-top py-2 px-3 mb-3">
+                <!-- Chat Back Button (Visible only in Small Devices) -->
+                <button class="btn btn-secondary btn-icon btn-minimal btn-sm text-muted d-xl-none" type="button" data-close="">
+                    <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                      </svg>
+                    <!-- <img class="injectable hw-20" src="./../assets/media/heroicons/outline/arrow-left.svg" alt=""> -->
+                </button>
+
+                <div class="pl-2 pl-xl-0">
+                    <h5 class="font-weight-semibold">Настройки</h5>
+                    <p class="text-muted mb-0">Обновить интеграцию</p>
+                </div>
+            </div>
+            <div class="container-xl px-2 px-sm-3">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-1">Список интеграции</h6>
+                                <p class="mb-0 text-muted small">Обновить интеграцию</p>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Название интеграции</label>
+                                            {{form.login|add_class:"form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Тип интеграции</label>
+                                            {{form.type|add_class:"form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Логин интеграции</label>
+                                            {{form.externalId|add_class:"form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Уникальный номер интеграции</label>
+                                            {{form.api_id|add_class:"form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Token интеграции</label>
+                                            {{form.api_token|add_class:"form-control"}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Сохранить изменения">
+                            </div>
+                        </div>
+                    
+                </form>
+            </div>
+        </div>
+        <!-- Profile Settings End -->
+    </main>
+{% endblock %}

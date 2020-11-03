@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+<form action="{% url 'social_messenger:order_create' %}" method="POST" id="order-create">   
+	<input type="hidden" name="customer" value="{{customer_form.instance.id}}">
+	{% csrf_token %}
+	<div class="p-3">
+		<div class="form-group">
+			<label>Логин клиента</label>
+			{{customer_form.login|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Номер телефона клиента</label>
+			{{customer_form.phone_number|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Адрес клиента</label>
+			{{customer_form.address|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Название продукта</label>
+			{{order_form.product|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Количество заказа</label>
+			{{order_form.count|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Способ оплаты</label>
+			{{order_form.payment|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Стоимость товара</label>
+			{{order_form.price|add_class:"form-control"}}
+		</div>
+		<div class="form-group">
+			<label>Дата доставки</label>
+			{{order_form.deadline_date|add_class:"form-control"|attr:"type:date"}}
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-sm btn-success" value="Сохранить">
+		</div>
+    </div>
+
+
+	
+	
+</form>

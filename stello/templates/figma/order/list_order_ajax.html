@@ -1,0 +1,18 @@
+{% for order in orders %}
+  <tr onclick="window.location='{% url 'crm:order_detail' order.customer.id %}'">
+    <td>
+      <div class="icheck-primary">
+        <input type="checkbox" value="" id="check1">
+        <label for="check1"></label>
+      </div>
+    </td>
+    <td class="mailbox-name">
+      {{order.customer.account}}
+    </td>
+    <td></td>
+    <td class="mailbox-date">
+      <span class="pull-right ">5 минут назад</span>
+    </td>
+    <td></td>
+  </tr>
+{% endfor %} 

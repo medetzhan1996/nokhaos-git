@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block sidebar %}
+    {% include "crm/order/sidebar.html" %}
+{% endblock %}
+{% block main %}
+    <main class="main main-visible" id="MainContent">
+        <div class="profile" style="display: block;">
+            <div class="page-main-heading sticky-top py-2 px-3 mb-3">
+                <!-- Chat Back Button (Visible only in Small Devices) -->
+                <button class="btn btn-secondary btn-icon btn-minimal btn-sm text-muted d-xl-none" type="button" data-close="">
+                    <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                      </svg>
+                    <!-- <img class="injectable hw-20" src="./../assets/media/heroicons/outline/arrow-left.svg" alt=""> -->
+                </button>
+
+                <div class="pl-2 pl-xl-0">
+                    <h5 class="font-weight-semibold">Подробнее</h5>
+                    <p class="text-muted mb-0">Информация о заказе</p>
+                </div>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="container-xl px-2 px-sm-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-1">Учетная запись</h6>
+                                    <p class="mb-0 text-muted small">Информация о заказчике</p>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="firstName">Имя</label>
+                                                {{customer_form.login|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="mobileNumber">Мобильный номер</label>
+                                                {{customer_form.phone_number|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="birthDate">Адрес</label>
+                                                {{customer_form.address|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-1">Список заказов</h6>
+                                    <ul class="nav flex-nowrap">                                        
+                                        <li class="nav-item list-inline-item mr-0">
+                                            <div class="dropdown show">
+                                                <a class="nav-link text-muted px-1" href="#" role="button" title="Заказы" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <!-- Default :: Inline SVG -->
+                                                    <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                                    </svg>
+                                                </a>
+
+                                                <div class="dropdown-menu dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-163px, 40px, 0px);" x-placement="bottom-end">
+                                                    <a class="dropdown-item" href="#" role="button" data-toggle="modal" data-target="#createOrder">Создать новый заказ</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="card-body p-0">
+                                    <div class="table-responsive-sm">
+                                    <table class="table table-bordered table-hover" style="font-size: 0.855rem;"> 
+                                        <thead>
+                                            <th>Наименование</th>
+                                            <th>Количество</th>
+                                            <th>Стоимость</th>
+                                            <th>Оплата</th>
+                                            <th>Срок заказа</th>
+                                        </thead>
+                                        <tbody>
+                                            {% for order in orders %}
+                                                <tr>
+                                                    <td>{{order.product}}</td>
+                                                    <td>{{order.count}}</td>
+                                                    <td>{{order.price}}</td>
+                                                    <td>{{order.get_status_display}}</td>
+                                                    <td>{{order.deadline_date|date:"d.m.Y"}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block modal %}
+<!-- Modal 2 :: Create Group -->
+        <div class="modal modal-lg-fullscreen fade" id="createOrder" tabindex="-1" role="dialog" aria-labelledby="createOrderLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-dialog-zoom">
+                <div class="modal-content">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title js-title-step" >Test</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body py-0 hide-scrollbar">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="groupName">Наименование заказа</label>
+                                        {{order_form.product|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="groupName">Количество</label>
+                                        {{order_form.count|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="groupName">Стоимость</label>
+                                        {{order_form.price|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="groupName">Оплата</label>
+                                        {{order_form.payment|add_class:"form-control"}}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="groupName"> Срок доставки</label>
+                                        {{order_form.deadline_date|add_class:"form-control"|attr:"type:date"}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" name="order_submit" class="btn btn-primary" value="Сохранить">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+{% endblock %}

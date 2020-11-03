@@ -1,0 +1,45 @@
+{% load message_tags %}
+
+{% for value in messages %}   
+    <!-- Received Message Start -->
+    <div class="message {% is_fromMe value.fromMe %}" id="message-content-{{value.id}}" data-id="{{value.id}}">
+        <div class="message-wrapper">
+            <div class="message-content">
+                {%if value.photo %}
+                    <h6>{{value.message}}</h6>
+                    <div class="form-row">
+                        <div class="col">
+                            <a class="popup-media" href="{{value.photo.url}}">
+                                <img class="img-fluid rounded" src="{{value.photo.url}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                {% elif value.photo_url %}
+                    {%if value.message %}
+                        <h6>{{value.message}}</h6>
+                    {% endif %}
+                    <div class="form-row">
+                        <div class="col">
+                            <a class="popup-media" href="{{value.photo_url}}">
+                                <img width="200" class="img-fluid rounded" src="{{value.photo_url}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                {% elif value.ptt_url %}
+                    <audio
+                        controls
+                        src="{{value.ptt_url}}">
+                            Your browser does not support the
+                            <code>audio</code> element.
+                    </audio>
+                {% elif value.message %}
+                    {{value.message}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="message-options">
+            <span class="message-date">{{value.created_at}}</span>
+        </div>
+    </div>
+    <!-- Received Message End -->
+{% endfor %}

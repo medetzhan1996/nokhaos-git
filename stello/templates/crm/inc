@@ -1,0 +1,98 @@
+<div class="col">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h6 class="mb-1">Учетная запись</h6>
+            <p class="mb-0 text-muted small">Обновить личную и контактную информацию</p>
+        </div>
+        
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="firstName">Имя</label>
+                        <input type="text" class="form-control form-control-md" id="firstName" placeholder="Введите имя" value="Карина">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="lastName">Фамилия</label>
+                        <input type="text" class="form-control form-control-md" id="lastName" placeholder="Введите " value="Тест">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="mobileNumber">Мобильный номер</label>
+                        <input type="text" class="form-control form-control-md" id="mobileNumber" placeholder="Введите номер тел" value="+77777755411">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="birthDate">Действующий пароль</label>
+                        <input type="text" class="form-control form-control-md" placeholder="Введите ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h6 class="mb-1">Привязка</h6>
+            <p class="mb-0 text-muted small">Привязать данные на аккаунт</p>
+        </div>
+        
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush list-group-sm-column">    
+                <li class="list-group-item py-2">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="mb-0">Закрыть учетную запись</p>
+                            
+                        </div>
+                        <div class="custom-control custom-switch mr-2">
+                            <input type="checkbox" class="custom-control-input" id="twoFactorSwitch" >
+                            <label class="custom-control-label" for="twoFactorSwitch">&nbsp;</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item py-2">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="mb-0">Разрешить доступ для инстаграма Zafirra</p>
+                        </div>
+                        <div class="custom-control custom-switch mr-2">
+                            <input type="checkbox" class="custom-control-input" id="unrecognisedSwitch" checked="">
+                            <label class="custom-control-label" for="unrecognisedSwitch">&nbsp;</label>
+                        </div>
+                    </div>
+                </li>
+               <li class="list-group-item py-2">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="mb-0">Разрешить доступ для инстаграма Kazahblesik</p>
+                        </div>
+                        <div class="custom-control custom-switch mr-2">
+                            <input type="checkbox" class="custom-control-input" id="unrecognisedSwitch" >
+                            <label class="custom-control-label" for="unrecognisedSwitch">&nbsp;</label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item py-2">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="mb-0">Разрешить доступ для инстаграма Zafirra</p>
+                        </div>
+                        <div class="custom-control custom-switch mr-2">
+                            <input type="checkbox" class="custom-control-input" id="unrecognisedSwitch" checked="">
+                            <label class="custom-control-label" for="unrecognisedSwitch">&nbsp;</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-primary">Сохранить изменения</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+{% load static %}
+{% load crm_tags %}
+
+<!-- Tab Content Start -->
+<div class="tab-content">
+    <!-- Profile Tab Content Start -->
+    <div>
+        <div class="d-flex flex-column h-100">
+            <div class="hide-scrollbar">
+                <!-- Sidebar Header Start -->
+                <div class="sidebar-header sticky-top p-2 mb-3">
+                    <h5 class="font-weight-semibold">Аналитика</h5>
+                    <p class="text-muted mb-0">Сводный отчет</p>
+                </div>
+                <!-- Sidebar Header end -->
+
+                <!-- Sidebar Content Start -->
+                <ul class="contacts-list" id="callLogTab" data-call-list="">
+                    <li class="contacts-item worker-select">
+                        <a class="contacts-link" href="{% url 'crm:report_list' %}">
+                            <div class="contacts-content">
+                                <div class="contacts-info">
+                                    <h6 class="chat-name text-truncate">
+                                        Общий отчет
+                                    </h6>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- workers Item Start -->
+                    {% for value in workers %}
+                        <li class="contacts-item worker-select {% is_active value.id worker.id %}" data-id="{{value.id}}">
+                            <a class="contacts-link" href="{% url 'crm:report_manager' value.id %}">
+                                <div class="avatar">
+                                    <img src="{% static 'images/avatar.png' %}" alt="">
+                                </div>
+                                <div class="contacts-content">
+                                    <div class="contacts-info">
+                                        <h6 class="chat-name text-truncate">{{value.get_full_name}}</h6>
+                                    </div>
+                                    <div class="contacts-texts">
+                                        <!-- Default :: Inline SVG -->
+                                        <svg class="hw-16 text-muted mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                            
+                                        <!-- Alternate :: External File link -->
+                                        <!-- <img class="injectable hw-16 text-muted mr-1" src="./../assets/media/heroicons/solid/location-marker.svg" alt=""> -->
+                                        <p class="text-muted mb-0">Алматы</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <!-- Sidebar Content End -->
+            </div>
+        </div>
+    </div>
+    <!-- Profile Tab Content End -->
+</div>
+<!-- Tab Content End -->

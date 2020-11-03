@@ -1,0 +1,31 @@
+{% load static %}
+{% for lead in leads %}
+    <!-- Chat Item Start -->
+    <li class="contacts-item groups" data-id="{{lead.id}}">
+        <a class="contacts-link" href="javascript:;">
+            <div class="avatar">
+                {% if lead.customer.avatar %}
+                    <img src="{{lead.customer.avatar}}" alt="">
+                {% else %}
+                    <img src="{% static 'images/avatar.png' %}" alt="">
+                {% endif %}
+            </div>
+            <div class="contacts-content">
+                <div class="contacts-info">
+                    <h6 class="chat-name text-truncate">{{lead.customer.login}}</h6>
+                    <div class="chat-time">{{lead.customer.type}}</div>
+                </div>
+                <div class="contacts-texts">
+                    <p class="text-truncate">Статус: 
+                        <span>
+                            {{lead.status|default_if_none:"Ожидание"}}<br>
+                        </span>
+                    </p>
+                    <div class="badge badge-rounded badge-primary ml-1">
+                        {{lead.message_unread}}
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+{% endfor %}

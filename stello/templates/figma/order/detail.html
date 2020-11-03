@@ -1,0 +1,284 @@
+{% extends "base_manager.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load crm_tags %}
+{% block content %}
+	<div class="row">
+        {{token}}
+        <div class="col-md-8">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Данные заказы</h3>
+              <div class="float-right">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-paper-plane"></i></button>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i></button>
+                </div>
+                <!-- /.btn-group -->
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div class="mailbox-read-info">
+                <span>Клиент: {{customer.account}}</span>
+                  	<span class="mailbox-read-time float-right">Номер телефона:&nbsp
+                  		<span class="">{{customer.phone_number}}</span>
+                  	</span>
+              </div>
+              <!-- /.mailbox-read-info -->
+            </div>
+            <!-- /.card-body -->
+            {% for order in orders %}
+	            <div class="card-footer bg-white">
+	              <div class="row">
+	                <div class="col-md-4">
+	                  <div class="card">
+	                    <img class="card-img-top" src="{{order.product.file.url}}" alt="Card image cap">
+	                  </div>
+	                </div>
+	                <div class="col-md-8">
+	                  <table class="table tablee card-table">
+	                    <tbody>
+	                      <tr>
+	                        <td>Товар:</td>
+	                        <td>{{order.product.title}}</td>
+	                      </tr>
+	                      {% if order.product_material %}
+		                      <tr>
+		                        <td>Материал заказа:</td>
+		                        <td>{{order.product_material.material.title}}</td>
+		                      </tr>
+		                    {% endif %}
+                        <tr>
+                          <td>Стоимость:</td>
+                          <td>{{order.product_material.price}}</td>
+                        </tr>
+	                      <tr>
+	                        <td>Количество:</td>
+	                        <td>{{order.count}}</td>
+	                      </tr>
+	                      {% if order.preview_text %}
+		                      <tr>
+		                        <td>Текст материала:</td>
+		                        <td>{{order.preview_text}}</td>
+		                      </tr>
+		                  {% endif %}
+	                      <tr>
+	                        <td>Статус:</td>
+	                        <td>
+	                        	<select name="" class="status-order select-border" data-id="{{order.id}}">
+                              <option value="1" {% is_selected '1' order.status %}>Ожидание</option>
+                              <option value="2" {% is_selected '2' order.status %}>Выполнен</option>
+                              <option value="3" {% is_selected '3' order.status %}>Отклонен</option>
+                          	</select>
+                          	</td>
+	                      </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Данные клиента</h3>
+            </div>
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="card-body p-0" style="display: block;">
+                <div class="col-lg-12 pl pr">
+                 <div class="forma_reg">
+                    <span class="span-omo">Имя</span>&nbsp;&nbsp;
+                    {{сustomer_form.name|add_class:"form-control"}}      
+                 </div> 
+                </div>
+                <div class="col-lg-12 pl pr">
+                 <div class="forma_reg">
+                    <span class="span-omo">Номер тел.</span>&nbsp;&nbsp;
+                    {{сustomer_form.phone_number|add_class:"form-control"}}             
+                 </div>
+                </div>
+                <div class="col-lg-12 pl pr">
+                 <div class="forma_reg">
+                    <span class="span-omo">Резервной номер тел.</span>&nbsp;&nbsp;
+                    {{сustomer_form.backup_phone_number|add_class:"form-control"}}           
+                 </div>
+                </div>
+                <div class="col-lg-12 pl pr">
+                 <div class="forma_reg" placeholder="...">
+                     <span class="span-omo">Адрес</span>&nbsp;&nbsp;
+                    {{сustomer_form.address|add_class:"form-control"}}       
+                 </div>
+                </div>
+                 <div class="col-lg-12 pl pr">
+                 <div class="forma_reg">
+                    <input type="submit" class="form-control btn btn-sm btn btn-info input-mini" value="Оформить заказ">            
+                 </div>
+                </div>
+              </div>
+            </form>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+{% endblock %}
+{% block modal %}
+  <div class="modal fade" id="exampleModalCenter" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Добавить заказ</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12 pl pr">
+            <div class="forma_reg">
+                <span class="span-omo">Категория</span>&nbsp;&nbsp;
+                <select name="category" id="category" class="form-control category-select2">
+                  <option value=""></option>
+                  {% for category in categories %}
+                    <option value="{{category.id}}">{{category.title}}</option>
+                  {% endfor %}
+                </select>           
+            </div> 
+          </div>
+          <div class="col-lg-12 pl pr">
+            <div class="forma_reg">
+                <span class="span-omo">Товар</span>&nbsp;&nbsp;
+                <select name="product" id="product" class="form-control input-mini product-select2">
+                  <option value=""></option>
+                </select>           
+            </div> 
+          </div>
+          <div class="col-lg-12 pl pr">
+           <div class="forma_reg">
+              <span class="span-omo">Материал заказы</span>&nbsp;&nbsp;
+              <select name="material" id="material" class="material-select2 form-control input-mini">
+                <option value=""></option>
+              </select>            
+           </div>
+          </div>
+          <div class="col-lg-12 pl pr">
+           <div class="forma_reg">
+              <span class="span-omo">Количество</span>&nbsp;&nbsp;
+              <input type="number" placeholder="..." name="omo_price" id="omo_price" class="form-control input-mini">           
+           </div>
+          </div>
+          <div class="col-lg-12 pl pr">
+           <div class="forma_reg" placeholder="...">
+               <span class="span-omo">Текст материала</span>&nbsp;&nbsp;
+              <input type="text" placeholder="..." name="omo_price" id="omo_price" class="form-control input-mini">                   
+           </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{media_url}}
+{% endblock %}
+{% block domready %}
+  $('.category-select2').select2({
+    width: '100%',
+    placeholder: 'Введите название категории'
+  })
+  
+  // Поиск товара
+  function formatState (state) {
+    if (!state.id) {
+      return state.text;
+    }
+    var $state = $(
+      '<span><img width="40px" src="' + state.file + '"/> ' +state.text+ '</span>'
+    );
+    return $state;
+  };
+
+  $('.product-select2').select2({
+    width: '100%',
+    placeholder: 'Введите название товара',
+    templateResult: formatState,
+    ajax: { 
+      url: "{% url 'crm:product_list_ajax' %}",
+      type: "post",
+      dataType: 'json',
+      delay: 500,
+      data: function (params) {
+        var category = $('#category').val()
+        return {
+          q: params.term,
+          category: category
+        };
+      },
+      processResults: function (data) {
+        console.log(data)
+        return {
+          results: $.map(data.items, function (item) {
+            return {
+              id: item.id,
+              text: item.title,
+              file: item.file
+              
+            }
+          })
+        };
+      },
+      cache: true
+    }
+  })
+  
+  // Поиск материала
+  $('.material-select2').select2({
+    width: '100%',
+    placeholder: 'Введите название материала',
+    ajax: { 
+      url: "{% url 'crm:material_list_ajax' %}",
+      type: "post",
+      dataType: 'json',
+      delay: 500,
+      data: function (params) {
+        var product = $('#product').val()
+        return {
+          q: params.term,
+          product: product
+        };
+      },
+      processResults: function (data) {
+        $('#material').val('').change()
+        return {
+          results: $.map(data.items, function (item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      },
+      cache: true
+    }
+  })
+
+  $(document).on('change', '.status-order', function(){
+    var order_id = $(this).data('id')
+    var status = $(this).val()
+    $.ajax({
+      url: "{% url 'crm:status_change' %}",
+      type: 'POST',
+      data: {order_id: order_id, status: status},
+      error: function(jqXHR, textStatus, errorThrown){
+        alert(jqXHR.responseText)
+      },
+      success: function (data){
+      }
+    })
+  })
+{% endblock %}

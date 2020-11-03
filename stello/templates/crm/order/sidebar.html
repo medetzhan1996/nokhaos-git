@@ -1,0 +1,114 @@
+{% load crm_tags %}
+<!-- Tab Content Start -->
+<div class="tab-content">
+    <!-- Profile Tab Content Start -->
+    <div>
+        <div class="d-flex flex-column h-100">
+            <div class="hide-scrollbar">
+                <!-- Sidebar Header Start -->
+                <div class="sidebar-header sticky-top p-2">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- Chat Tab Pane Title Start -->
+                        <h5 class="font-weight-semibold mb-0">Список заказчиков</h5>
+                        <!-- Chat Tab Pane Title End -->
+
+                        <ul class="nav flex-nowrap">                                        
+                            <li class="nav-item list-inline-item mr-0">
+                                <div class="dropdown">
+                                    <a class="nav-link text-muted px-1" href="#" role="button" title="Заказы" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!-- Default :: Inline SVG -->
+                                        <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                                        </svg>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <a class="dropdown-item" href="#" role="button" data-toggle="modal" data-target="#createOrder">Создать новый заказ</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    
+                    <!-- Sidebar Header Start -->
+                    <div class="sidebar-sub-header">
+                        <!-- Sidebar Header Dropdown Start -->
+                        <div class="dropdown mr-2">
+                            <!-- Dropdown Button Start -->
+                            <button class="btn btn-outline-default dropdown-toggle" type="button" data-chat-filter-list="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Список
+                            </button>
+                            <!-- Dropdown Button End -->
+
+                            <!-- Dropdown Menu Start -->
+                            <div class="dropdown-menu" style="">
+                                <a class="dropdown-item" data-chat-filter="" data-select="all-chats" href="#">Саят</a>
+                                <a class="dropdown-item" data-chat-filter="" data-select="friends" href="#">Медет</a>
+                            </div>
+                            <!-- Dropdown Menu End -->
+                        </div>
+                        <!-- Sidebar Header Dropdown End -->
+
+                        <!-- Sidebar Search Start -->
+                        <form class="form-inline">
+                            <div class="input-group">
+                                <input type="text" class="form-control search border-right-0 transparent-bg pr-0" placeholder="Поиск...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text transparent-bg border-left-0" role="button">
+                                        <!-- Default :: Inline SVG -->
+                                        <svg class="text-muted hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+
+                                        <!-- Alternate :: External File link -->
+                                        <!-- <img class="injectable hw-20" src="./../assets/media/heroicons/outline/search.svg" alt=""> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Sidebar Search End -->
+                    </div>
+                    <!-- Sidebar Header End -->
+                </div>
+                <!-- Sidebar Header end -->
+
+                <!-- Sidebar Content Start -->
+                <ul class="contacts-list" id="callLogTab" data-call-list="">
+                    <li class="contacts-item">
+                        <a class="contacts-link" href="{% url 'crm:order_create' %}">
+                            <div class="contacts-content">
+                                <div class="contacts-info">
+                                    <h6 class="chat-name text-truncate">Добавить новый заказ</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {% for value in customers %}
+                        <li class="contacts-item {% is_active value.customer.id customer.id %}">
+                            <a class="contacts-link" href="{% url 'crm:order_detail' value.customer.id %}">
+                                <div class="avatar">
+                                    <img src="{{value.customer.avatar}}" alt="">
+                                </div>
+                                <div class="contacts-content">
+                                    <div class="contacts-info">
+                                        <h6 class="chat-name text-truncate">{{value.customer.login}}</h6>
+                                    </div>
+                                    <div class="contacts-texts">
+                                        {% for order in value.customer.order_customers.all %}
+                                            {{order.product}}; 
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}                                
+                </ul>
+                <!-- Sidebar Content End -->
+            </div>
+        </div>
+    </div>
+    <!-- Profile Tab Content End -->
+</div>
+<!-- Tab Content End -->

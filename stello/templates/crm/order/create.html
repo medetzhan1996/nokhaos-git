@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block sidebar %}
+    {% include "crm/order/sidebar.html" %}
+{% endblock %}
+{% block main %}
+
+    <main class="main main-visible" id="MainContent">
+    	{% if customer_form.errors %}
+    		{% for field in customer_form %}
+                <div>
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+    	{% endif %}
+        <div class="profile" style="display: block;">
+            <div class="page-main-heading sticky-top py-2 px-3 mb-3">
+                <!-- Chat Back Button (Visible only in Small Devices) -->
+                <button class="btn btn-secondary btn-icon btn-minimal btn-sm text-muted d-xl-none" type="button" data-close="">
+                    <svg class="hw-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                      </svg>
+                    <!-- <img class="injectable hw-20" src="./../assets/media/heroicons/outline/arrow-left.svg" alt=""> -->
+                </button>
+
+                <div class="pl-2 pl-xl-0">
+                    <h5 class="font-weight-semibold">Заказ</h5>
+                    <p class="text-muted mb-0">Добавить новый заказ</p>
+                </div>
+            </div>
+          	<form action="" method="POST">
+          		{% csrf_token %}
+          		<div class="container-xl px-2 px-sm-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-1">Данные заказчика</h6>
+                                    <p class="mb-0 text-muted small">Информация о заказчике</p>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="firstName">Имя</label>
+                                                {{customer_form.login|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="mobileNumber">Мобильный номер</label>
+                                                {{customer_form.phone_number|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="birthDate">Адрес</label>
+                                                {{customer_form.address|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-1">Данные заказа</h6>
+                                    <p class="mb-0 text-muted small">детальная информация о заказе</p>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="firstName">Наименование заказа</label>
+                                                {{order_form.product|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="mobileNumber">Количество</label>
+                                                {{order_form.count|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="birthDate">Стоимость</label>
+                                                {{order_form.price|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="firstName">Оплата</label>
+                                                {{order_form.payment|add_class:"form-control"}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group">
+                                                <label for="mobileNumber">Срок доставки</label>
+                                                {{order_form.deadline_date|add_class:"form-control"|attr:"type:date"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end">
+                                    <input type="submit" class="btn btn-primary" name="submit" value="Сохранить изменения">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          	</form>
+        </div>
+    </main>
+{% endblock %}
