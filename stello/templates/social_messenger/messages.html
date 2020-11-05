@@ -3,9 +3,9 @@
 {% for value in messages %}   
     <!-- Received Message Start -->
     <div class="message {% is_fromMe value.fromMe %}" id="message-content-{{value.id}}" data-id="{{value.id}}">
-        <div class="message-wrapper">
-            <div class="message-content">
-                {%if value.photo %}
+        {%if value.photo %}
+            <div class="message-wrapper">
+                <div class="message-content">
                     <h6>{{value.message}}</h6>
                     <div class="form-row">
                         <div class="col">
@@ -14,7 +14,11 @@
                             </a>
                         </div>
                     </div>
-                {% elif value.photo_url %}
+                </div>
+            </div>
+        {% elif value.photo_url %}
+            <div class="message-wrapper">
+                <div class="message-content">
                     {%if value.message %}
                         <h6>{{value.message}}</h6>
                     {% endif %}
@@ -25,18 +29,20 @@
                             </a>
                         </div>
                     </div>
-                {% elif value.ptt_url %}
-                    <audio
-                        controls
-                        src="{{value.ptt_url}}">
-                            Your browser does not support the
-                            <code>audio</code> element.
-                    </audio>
-                {% elif value.message %}
-                    {{value.message}}
-                {% endif %}
+                </div>
             </div>
-        </div>
+        {% elif value.ptt_url %}
+            <audio src="{{value.ptt_url}}">
+                    Your browser does not support the
+                    <code>audio</code> element.
+            </audio>
+        {% elif value.message %}
+            <div class="message-wrapper">
+                <div class="message-content">
+                    {{value.message}}
+                </div>
+            </div>
+        {% endif %}
         <div class="message-options">
             <span class="message-date">{{value.created_at}}</span>
         </div>
