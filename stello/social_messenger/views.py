@@ -71,6 +71,7 @@ def webhookWhatsApp(request):
                 Profile.objects.filter(
                     company=company, user=user).update(last_lead=now)
                 obj_lead.manager = user
+            if not fromMe:
                 obj_lead.message_unread = message_unread
             send_message = Message(lead=obj_lead, fromMe=fromMe)
             if not created_lead:
