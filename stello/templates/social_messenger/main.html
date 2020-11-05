@@ -749,11 +749,8 @@
         });
     });
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        window.location.reload(true)
-        alert('test')
-      }
-    });
+    window.addEventListener("focus", function(evt){
+        location.reload()
+    }, false);
 
 {% endblock %}
