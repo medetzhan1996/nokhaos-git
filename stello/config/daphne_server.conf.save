@@ -1,0 +1,7 @@
+[program:daphne]
+directory=/home/medet/webapps/stello  #Project directory
+command=/home/medet/webapps/venv/bin/daphne t command
+autostart=true
+autorestart=true
+stdout_logfile=/home/medet/webapps/stello/logs/daphne_errors.log  #Journal
+redirect_stderr=true

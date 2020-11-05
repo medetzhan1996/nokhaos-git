@@ -8096,6 +8096,7 @@ Chanelog:
   margin-bottom: 1.25rem;
   font-size: 0.875rem; }
   .message .message-content {
+    word-break: break-word;
     padding: 1rem 2.25rem;
     background-color: #418DEF;
     color: #fff;

@@ -24,9 +24,9 @@ class Message(models.Model):
 
     def get_photo_url(self):
         if settings.DEBUG:
-            host = 'https://tasty-insect-60.loca.lt'
+            host = 'https://medic-port.kz'
         else:
-            host = 'https://tasty-insect-60.loca.lt'
+            host = 'https://medic-port.kz'
         return host + self.photo.url
 
     @property

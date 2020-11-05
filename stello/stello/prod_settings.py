@@ -6,7 +6,7 @@ SECRET_KEY = '*+rsa(@$^dg8)1bs)*asdsadpa(0_=n@c6*xtasdoiumo'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '195.210.47.233', 'medic-port.kz']
 
 DATABASES = {
     'default': {
@@ -19,6 +19,6 @@ DATABASES = {
     }
 }
 
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR]
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT =  os.path.join(BASE_DIR, 'static')

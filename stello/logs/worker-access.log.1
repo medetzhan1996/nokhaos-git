@@ -1,0 +1,21 @@
+ 
+ -------------- celery@euromedix.kz v4.4.7 (cliffs)
+--- ***** ----- 
+-- ******* ---- Linux-5.4.0-48-generic-x86_64-with-glibc2.29 2020-11-04 13:32:36
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         stello:0x7f2776a7dd60
+- ** ---------- .> transport:   redis://localhost:6379//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 4 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . social_messenger.tasks.sendMessageInstagramTask
+  . social_messenger.tasks.sendMessageTask
+  . social_messenger.tasks.sendPhotoTask
+
