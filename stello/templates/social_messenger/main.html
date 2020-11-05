@@ -748,7 +748,6 @@
             },
         });
     });
-
     function registerPageVisibility() {
         let hidden;
         let visibilityChange;
@@ -765,10 +764,16 @@
         window.document.addEventListener(visibilityChange, () => {
             if (!document[hidden]) {
                 window.location.reload()
-                alert('test')
             }
         });
     }
-    registerPageVisibility()
+
+    if(navigator.userAgent.search("mobile")>0 ){
+        registerPageVisibility()
+    }
+    
+
+    
+
 
 {% endblock %}
