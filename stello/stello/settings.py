@@ -72,8 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stello.wsgi.application'
 ASGI_APPLICATION = 'stello.routing.application'
-PWA_APP_NAME = 'stello'
-PWA_APP_DESCRIPTION = "stello crm site"
+PWA_APP_NAME = 'nokhaos'
+PWA_APP_DESCRIPTION = "nokhaos crm site"
 PWA_APP_DEBUG_MODE = True
 PWA_APP_START_URL = ''
 
