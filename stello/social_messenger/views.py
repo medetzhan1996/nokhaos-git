@@ -135,6 +135,12 @@ def webhook(request):
 
 
 class LeadListView(ListView, LoginRequiredMixin):
+    model = Lead
+    paginate_by = 20
+    ordering = ['-updated_at']
+    template_name = 'social_messenger/main.html'
+    context_object_name = 'leads'
+
     def get_queryset(self):
         self.user = self.request.user
         self.company = self.user.profile.company
@@ -143,12 +149,6 @@ class LeadListView(ListView, LoginRequiredMixin):
         if self.user.profile.type == 3:
             qs = qs.filter(manager=self.user)
         return qs
-
-    model = Lead
-    paginate_by = 20
-    ordering = ['-updated_at']
-    template_name = 'social_messenger/main.html'
-    context_object_name = 'leads'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -246,7 +246,7 @@ class MessageCreateView(View, LoginRequiredMixin):
 
                 }
                 if message_text:
-                    sendMessageTask.delay(data)
+                    print(sendMessageTask(data))
             elif integration.type == 'instagramV2':
                 data = {
                     'lead_id': lead.lead_id, 'source': lead.real_id,

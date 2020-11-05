@@ -11,6 +11,7 @@ def sendMessageTask(data):
     message_text = data.get('message_text')
     send_message = WhatsAppAPI.sendMessage(
         account_id, token, chat_id, message_text)
+    return send_message
     apiId = send_message.get('id')
     ComplatedTask.objects.create(message_id=message_id, apiId=apiId)
     return send_message.get('sent')

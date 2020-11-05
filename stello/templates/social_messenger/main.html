@@ -441,15 +441,19 @@
 {% endblock %}
 
 {% block domready %}
+    
     var url = 'wss://' + window.location.host +
                 '/ws/social/messenger/{{user.id}}/';
+    
     var messageSocket = new WebSocket(url);
+    
     function scroll_to_end(){
         document.querySelector('.chat-finished').scrollIntoView({
             block: 'nearest',               // "start" | "center" | "end" | "nearest",
             behavior: 'auto'          //"auto"  | "instant" | "smooth",
         });
     }
+
     function get_messages(lead){
         $.ajax({
             headers: { "X-CSRFToken": csrftoken },
@@ -471,8 +475,12 @@
             }
         })
     }
+
     window.onpopstate = function() {
         $('.main').removeClass('main-visible')
+        $('#active-lead').val('')
+        $('.chat-info').removeClass('chat-info-visible')
+        $(".mfp-close").click()
     }
 
 	$(document).on('click', '.contacts-item', function(){
@@ -489,7 +497,9 @@
 		get_messages(lead)
         $(this).find('.badge').html('0')
 	})
+
     $(document).on('click', '.scroll-btn', function(){
+        event.preventDefault(); 
         scroll_to_end()
     })
 
@@ -498,8 +508,6 @@
         get_messages(lead)
     })
 
-    
-    
     $(document).on('input', '#search-chat', function(){
         var worker = $('[data-filter-html]').data('id')
         var search = $(this).val()
@@ -622,8 +630,7 @@
                     $('.alerts-order').removeClass('d-none')
                 }
             }
-        })
-        
+        })        
     })
     
     $(document).on('click', '.change-status-lead', function(){
@@ -646,6 +653,7 @@
             }
         })
     })
+
     $(document).on('click', '.close-img', function(){
         $('.photo').addClass('d-none')
         $('#photo-base64').val('')
