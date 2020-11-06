@@ -695,21 +695,11 @@
             }
             else{
                 if(!fromMe){
+                    var badge = element.find('.badge')
+                    var badge_new = parseInt(badge.html()) + 1
+                    badge.html(badge_new)
+                    element.clone().prependTo("#chatContactTab")
                     element.remove()
-                    $.ajax({
-                        headers: { "X-CSRFToken": csrftoken },
-                        url: "{% url 'social_messenger:lead_search' %}",
-                        type: 'GET',
-                        data:{
-                            'lead': lead
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.responseText)
-                        },
-                        success: function (data) {
-                            $('#chatContactTab').prepend(data)
-                        }
-                    })
 
                 }
             }
