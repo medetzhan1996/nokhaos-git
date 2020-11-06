@@ -75,7 +75,7 @@ ASGI_APPLICATION = 'stello.routing.application'
 PWA_APP_NAME = 'nokhaos'
 PWA_APP_DESCRIPTION = "nokhaos crm site"
 PWA_APP_DEBUG_MODE = True
-PWA_APP_START_URL = ''
+PWA_APP_START_URL = '/social_messenger/lead/'
 
 
 # Database

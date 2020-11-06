@@ -22,7 +22,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url('', include('pwa.urls')),
-    path('', auth_views.LoginView.as_view(), name='login'),
+    path('', auth_views.LoginView.as_view(
+        redirect_authenticated_user=True),name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
     path('figma/', include('figma.urls')),

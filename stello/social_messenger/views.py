@@ -135,7 +135,7 @@ def webhook(request):
     return HttpResponse(status=200)
 
 
-class LeadListView(ListView, LoginRequiredMixin):
+class LeadListView(LoginRequiredMixin, ListView):
     model = Lead
     paginate_by = 20
     ordering = ['-updated_at']
@@ -160,7 +160,7 @@ class LeadListView(ListView, LoginRequiredMixin):
         return context
 
 
-class LeadSearchView(View, LoginRequiredMixin):
+class LeadSearchView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         company = self.request.user.profile.company
@@ -189,7 +189,7 @@ class LeadSearchView(View, LoginRequiredMixin):
         return leads.all()
 
 
-class LeadStatusChangeView(View, LoginRequiredMixin):
+class LeadStatusChangeView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         company = self.request.user.profile.company
         lead = request.POST.get('lead', None)
@@ -203,7 +203,7 @@ class LeadStatusChangeView(View, LoginRequiredMixin):
             return JsonResponse({"success": False})
 
 
-class MessageListView(View, LoginRequiredMixin):
+class MessageListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         message = request.GET.get('message', None)
@@ -218,7 +218,7 @@ class MessageListView(View, LoginRequiredMixin):
                       {'messages': messages, 'lead': lead})
 
 
-class MessageCreateView(View, LoginRequiredMixin):
+class MessageCreateView(LoginRequiredMixin, View):
     message_form_class = MessageForm
 
     def post(self, request, *args, **kwargs):
@@ -261,7 +261,7 @@ class MessageCreateView(View, LoginRequiredMixin):
                           {'messages': messages})
 
 
-class OrderCreateView(View, LoginRequiredMixin):
+class OrderCreateView(LoginRequiredMixin, View):
     customer_form_class = СustomerForm
     order_form_class = OrderForm
 
