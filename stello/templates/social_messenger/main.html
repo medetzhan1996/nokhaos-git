@@ -441,6 +441,7 @@
 {% endblock %}
 
 {% block domready %}
+    localStorage.setItem("refresh", true);
     var url = 'wss://' + window.location.host +
                 '/ws/social/messenger/{{user.id}}/';
     
