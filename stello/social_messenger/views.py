@@ -209,7 +209,7 @@ class MessageListView(LoginRequiredMixin, View):
         message = request.GET.get('message', None)
         lead = get_object_or_404(Lead, pk=request.GET.get('lead'))
         lead.message_unread = 0
-        lead.save()
+        lead.save(set_updated_at=False)
         messages = Message.objects.filter(
             lead=lead).order_by('created_at')
         if message:

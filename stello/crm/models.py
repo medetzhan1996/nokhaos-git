@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.conf import settings
 
@@ -179,7 +180,13 @@ class Lead(models.Model):
     message_unread = models.IntegerField(default=0)
     real_id = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, set_updated_at=True, **kwargs):
+        if self.pk is not None:
+            if set_updated_at:
+                self.updated_at = timezone.now()
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = "leads"

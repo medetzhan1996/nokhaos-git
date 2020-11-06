@@ -367,7 +367,8 @@
                                     </button>
                                 </div>
                                 <input type="file" id="upload-image" accept="image/*" style="display: none;">
-                                <form action="" method="POST" id="form-message">
+                                <form action="" method="POST" id="form-message" 
+                                style="width: 80%; box-sizing: border-box;">
                                     <!-- Emoji End --> 
                                     <input type="hidden" id="photo-base64" name="photoBase64"> 
                                     <input type="hidden" id="active-lead" name="lead">  
@@ -577,6 +578,11 @@
         })
 
     })
+    $('#message-text').keypress(function(e){
+        if(e.which === 13){
+            $('#send-message').click()
+        }
+    });
 
     $(document).on('click', '#send-message', function(){
         if($('#message-text').val() != '' || $('#photo-base64').val() != ''){
@@ -702,6 +708,9 @@
                     var badge = element.find('.badge')
                     var badge_new = parseInt(badge.html()) + 1
                     badge.html(badge_new)
+                    element.clone().prependTo("#chatContactTab")
+                    element.remove()
+
                 }
             }
             
