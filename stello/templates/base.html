@@ -856,6 +856,7 @@
         reload(refresh)
         
         $(document).ready(function(){
+            $('#chatContactTab').scrollTop(150);
             {% block domready %}
             {% endblock %}
             $(document).on('click', '.contacts-item', function(){
