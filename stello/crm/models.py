@@ -127,8 +127,7 @@ class Integration(ItemBase):
         Сompany, related_name='integration_companies',
         on_delete=models.CASCADE, blank=True, null=True)
     customers = models.ManyToManyField(
-        Сustomer, related_name='integrations_customers',
-        blank=True, null=True)
+        Сustomer, related_name='integrations_customers')
 
     class Meta:
         db_table = "integrations"
@@ -179,6 +178,7 @@ class Lead(models.Model):
                                on_delete=models.CASCADE, null=True, blank=True)
     message_unread = models.IntegerField(default=0)
     real_id = models.IntegerField(null=True)
+    is_archive = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
 

@@ -19,7 +19,7 @@
 
                     <div class="pl-2 pl-xl-0">
                         <h5 class="font-weight-semibold">Подробнее</h5>
-                        <p class="text-muted mb-0">Информация о заказе</p>
+                        <p class="text-muted mb-0">Информация о отчете</p>
                     </div>
                 </div>
 
@@ -27,15 +27,12 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <select name="" id="" class="form-control search transparent-bg pr-0">
-                                <option value="" selected="">Bерите интеграции</option>
+                                <option value="" selected="">Bыберите интеграцию</option>
                                 <option value="">Whats App</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="date" name="" class="form-control search transparent-bg pr-0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <input type="date" name="" class="form-control search transparent-bg pr-0">
+                            <input type="month" name="" class="form-control search transparent-bg pr-0">
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
                             <div class="info-box bg-gradient-info d-flex">
@@ -111,99 +108,30 @@
                                 </g></svg>
                               </span>
                               <div class="info-box-content">
-                                <span class="info-box-text">Количество лидов</span>
-                                <span class="info-box-number">{% get_count_lead lead %}</span>
+                                <span class="info-box-text">
+                                    Количество лидов - {% get_count_lead lead %}
+                                </span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <div class="info-box bg-gradient-danger d-flex">
+                              <div class="info-box-content">
+                                <span class="info-box-text">
+                                    {% for lead_status in lead_statuses %}
+                                        {{lead_status.lead_status.title}} -  
+                                        {% get_count_lead lead lead_status.lead_status %}
+                                        <hr>
+                                    {% endfor %}
+                                    Не обработанные - {% get_count_lead lead None %}
+                                </span>
                               </div>
                             </div>
                         </div>
                 </div>
             </div>
             <!-- Profile Settings End -->
-            <!-- Chat Info Start -->
-                <div class="chat-info">
-                    <div class="d-flex h-100 flex-column">
-
-                        <!-- Chat Info Header Start -->
-                        <div class="chat-info-header px-2">
-                            <div class="container-fluid">
-                                <ul class="nav justify-content-between align-items-center">
-                                    <!-- Sidebar Title Start -->
-                                    <li class="text-center">
-                                        <h5 class="text-truncate mb-0">Создать новый заказ</h5>
-                                    </li>
-                                    <!-- Sidebar Title End -->
-
-                                    <!-- Close Sidebar Start -->
-                                    <li class="nav-item list-inline-item">
-                                        <a class="nav-link text-muted px-0" href="#" data-chat-info-close="">
-                                            <!-- Default :: Inline SVG -->
-                                            <svg class="hw-22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                              
-                                            <!-- Alternate :: External File link -->
-                                            <!-- <img class="injectable hw-22" src="./../assets/media/heroicons/outline/x.svg" alt=""> -->
-                                        
-                                        </a>
-                                    </li>
-                                    <!-- Close Sidebar End -->
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Chat Info Header End  -->
-
-                        <!-- Chat Info Body Start  -->
-                        <div class="hide-scrollbar flex-fill">
-                        
-                                <div class="col-12" style="padding-top: 15px;">
-                                    <div class="form-group">
-                                        <label for="groupName">Имя</label>
-                                        <input type="text" class="form-control" id="groupName" placeholder="...">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="groupName">Название заказа</label>
-                                        <input type="text" class="form-control" id="groupName" placeholder="...">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="groupName">Количество</label>
-                                        <input type="text" class="form-control" id="groupName" placeholder="...">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="groupName">Стоимость</label>
-                                        <input type="text" class="form-control" id="groupName" placeholder="...">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="groupName">Оплата</label>
-                                        <select name="" id="" class="form-control">
-                                            <option value="" selected="">---</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="groupName"> Срок заказа</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <button class="form-control btn btn-primary">Сохранить</button>
-                                    </div>
-                                </div>
-                        </div>
-                        <!-- Chat Info Body Start  -->
-
-                    </div>
-                </div>
-                <!-- Chat Info End -->
+           
         </div>
     </main>
 {% endblock %}

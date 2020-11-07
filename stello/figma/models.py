@@ -85,8 +85,7 @@ class Product(ItemBase):
     classes = models.CharField(max_length=180, blank=True)
     materials = models.ManyToManyField(Material,
                                        through='ProductMaterial',
-                                       related_name='rel_materials',
-                                       blank=True, null=True)
+                                       related_name='rel_materials')
 
     class Meta:
         db_table = "figma_products"

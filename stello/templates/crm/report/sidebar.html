@@ -30,7 +30,7 @@
                     <!-- workers Item Start -->
                     {% for value in workers %}
                         <li class="contacts-item worker-select {% is_active value.id worker.id %}" data-id="{{value.id}}">
-                            <a class="contacts-link" href="{% url 'crm:report_manager' value.id %}">
+                            <a class="contacts-link" href="{% url 'crm:report_list' value.id %}">
                                 <div class="avatar">
                                     <img src="{% static 'images/avatar.png' %}" alt="">
                                 </div>

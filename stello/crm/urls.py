@@ -20,6 +20,6 @@ urlpatterns = [
          name="integration_detail"),
     path('report/list/', views.ReportListView.as_view(),
          name="report_list"),
-    path('report/manager/<int:manager>', views.ReportManagerView.as_view(),
-         name="report_manager"),
+    path('report/list/<int:manager>', views.ReportListView.as_view(),
+         name="report_list")
 ]

@@ -4,7 +4,8 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.contrib.auth.models import User
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
-from .models import Profile, Integration, Order, Сustomer, Lead
+from .models import Profile, Integration, Order, Сustomer, Lead,\
+    CompanyLeadStatus
 from .forms import WorkerForm, UserForm, IntegrationForm,\
     OrderForm, СustomerForm
 
@@ -287,20 +288,13 @@ class ReportListView(ReportMixin):
     template_name = 'crm/report/list.html'
 
     def get(self, request, *args, **kwargs):
+        manager = self.kwargs.get('manager')
         lead = Lead.objects.filter(
             company=self.company)
+        if manager:
+            lead = lead.filter(manager=manager)
+        lead_statuses = CompanyLeadStatus.objects.filter(
+            company=self.company).all()
         return self.render_to_response({
-            'workers': self.workers, 'lead': lead})
-
-
-# Детальная информация отчета
-class ReportManagerView(ReportMixin):
-    template_name = 'crm/report/manager.html'
-
-    def get(self, request, *args, **kwargs):
-        manager = get_object_or_404(
-            User, pk=self.kwargs.get('manager'))
-        lead = Lead.objects.filter(
-            company=self.company, manager=manager)
-        return self.render_to_response({
-            'workers': self.workers, 'lead': lead})
+            'workers': self.workers, 'lead': lead,
+            'lead_statuses': lead_statuses})

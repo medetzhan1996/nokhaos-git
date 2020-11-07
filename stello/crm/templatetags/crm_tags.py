@@ -61,7 +61,9 @@ def is_active(val1, val2):
 
 
 @register.simple_tag
-def get_count_lead(lead):
+def get_count_lead(lead, lead_status=0):
+    if lead_status != 0:
+        lead = lead.filter(status=lead_status)
     return lead.count()
 
 @register.simple_tag

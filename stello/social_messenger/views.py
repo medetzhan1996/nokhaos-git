@@ -76,6 +76,7 @@ def webhookWhatsApp(request):
             send_message = Message(lead=obj_lead, fromMe=fromMe)
             if not created_lead:
                 obj_lead.updated_at = now
+            obj_lead.is_archive=False
             obj_lead.save()
             if(type == 'chat'):
                 send_message.message = body
@@ -148,7 +149,7 @@ class LeadListView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         qs = qs.filter(company=self.company)
         if self.user.profile.type == 3:
-            qs = qs.filter(manager=self.user)
+            qs = qs.filter(manager=self.user, is_archive=False)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -197,7 +198,7 @@ class LeadStatusChangeView(LoginRequiredMixin, View):
         lead = Lead.objects.filter(
             company=company, id=lead)
         if lead.exists():
-            lead.update(status_id=status_id)
+            lead.update(status_id=status_id, is_archive=True)
             return JsonResponse({"success": True})
         else:
             return JsonResponse({"success": False})
@@ -235,6 +236,7 @@ class MessageCreateView(LoginRequiredMixin, View):
             message.save()
             messages = Message.objects.filter(id=message.id)[:1]
             lead = message.lead
+            obj_lead.is_archive=False
             integration = lead.integration
             message_text = message.message
             if integration.type == 'whatsapp':         
